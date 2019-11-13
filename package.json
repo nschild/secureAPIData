@@ -1,6 +1,6 @@
 {
   "name": "secure-api-data",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Validates and secures data from api",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
