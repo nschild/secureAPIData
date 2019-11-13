@@ -7,7 +7,7 @@
 Simple usage:
 
 ```
-import { baseRules, secureUserInput } from 'secure-api-data';
+import { baseRules, secureAPIData } from 'secure-api-data';
 
 // let's define some custom rules
 export const RULE = {
@@ -64,7 +64,7 @@ const validationRules = {
 }
 
 // test and validate here
-const out = secureUserInput(insecureData, validationRules);
+const out = secureAPIData(insecureData, validationRules);
 if(out.errors)
     console.error(out.errors);
 else {

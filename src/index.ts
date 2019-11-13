@@ -93,16 +93,16 @@ export let baseRules = {
 	url: ruleUrl
 };
 
-export const secureUserInput = async (
+export const secureAPIData = (
 	data: any,
 	dataRules: any,
 	fn?: any,
 	language: string = 'en-us'
-): Promise<{ out: any; errors: string[] }> => {
+): { out: any; errors: string[] } => {
 	const lang = i18n.init(language);
 	const errors: string[] = [];
 
-	async function iterationCopy(src: any, curPath: string[] = []) {
+	function iterationCopy(src: any, curPath: string[] = []) {
 		const target: any = {};
 		for (const prop of Object.keys(src)) {
 			const tempPath = [...curPath];
@@ -114,19 +114,19 @@ export const secureUserInput = async (
 					typeof src[prop].RULECONST === 'string' &&
 					src[prop].RULECONST === RULECONST
 				)
-					target[cleanProp] = await testAndBuild(src[prop], tempPath.join('.'));
+					target[cleanProp] = testAndBuild(src[prop], tempPath.join('.'));
 				else if (prop.substr(-2) === '[]')
 					target[cleanProp] = get(data, tempPath.join('.'), []).map(
-						async (item: any, index: number) =>
-							await testAndBuild(src[prop], tempPath.join('.') + '[' + index + ']')
+						(item: any, index: number) =>
+							testAndBuild(src[prop], tempPath.join('.') + '[' + index + ']')
 					);
-				else target[cleanProp] = await iterationCopy(src[prop], tempPath);
+				else target[cleanProp] = iterationCopy(src[prop], tempPath);
 			}
 		}
 		return target;
 	}
 
-	async function testAndBuild(curRules: any, curPath: string): Promise<any> {
+	function testAndBuild(curRules: any, curPath: string): any {
 		const { required, defaultValue, type, multiple } = curRules;
 		const {
 			minLength,
@@ -166,9 +166,9 @@ export const secureUserInput = async (
 			}
 			else {
 				curRules.multiple = false;
-				return await Promise.all(temp.map((item, index) =>
+				return temp.map((item, index) =>
 					testAndBuild(curRules, `${curPath}[${index}]`)
-				));
+				);
 			}
 		}
 		if (typeof temp === 'undefined') {
@@ -357,7 +357,7 @@ export const secureUserInput = async (
 		}
 	}
 
-	const out = await iterationCopy(dataRules);
+	const out = iterationCopy(dataRules);
 	if (errors.length > 0) errors.unshift(lang('header'));
 	return { out, errors };
 };

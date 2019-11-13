@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { baseRules, secureUserInput } from '../src/index';
+import { baseRules, secureAPIData } from '../src/index';
 
 // tslint:disable:object-literal-sort-keys
 
@@ -363,15 +363,15 @@ const missingObjectExpected = {
 };
 
 async function runTests() {
-	assert.deepStrictEqual((await secureUserInput(stringTests, stringRules)).out, stringExpected);
-	assert.deepStrictEqual((await secureUserInput(numberTests, numberRules)).out, numberExpected);
-	assert.deepStrictEqual((await secureUserInput(booleanTests, booleanRules)).out, booleanExpected);
-	assert.deepStrictEqual((await secureUserInput(emailTests, emailRules)).out, emailExpected);
-	assert.deepStrictEqual((await secureUserInput(dateTests, dateRules)).out, dateExpected);
-	assert.deepStrictEqual((await secureUserInput(urlTests, urlRules)).out, urlExpected);
-	assert.deepStrictEqual((await secureUserInput(rawTests, rawRules)).out, rawExpected);
-	assert.deepStrictEqual((await secureUserInput(multipleTests, multipleRules)).out, multipleExpected);
-	assert.deepStrictEqual((await secureUserInput(arrayTests, arrayRules)).out, arrayExpected);
-	assert.deepStrictEqual((await secureUserInput(missingObjectTests, missingObjectRules)).out, missingObjectExpected);
+	assert.deepStrictEqual((secureAPIData(stringTests, stringRules)).out, stringExpected);
+	assert.deepStrictEqual((secureAPIData(numberTests, numberRules)).out, numberExpected);
+	assert.deepStrictEqual((secureAPIData(booleanTests, booleanRules)).out, booleanExpected);
+	assert.deepStrictEqual((secureAPIData(emailTests, emailRules)).out, emailExpected);
+	assert.deepStrictEqual((secureAPIData(dateTests, dateRules)).out, dateExpected);
+	assert.deepStrictEqual((secureAPIData(urlTests, urlRules)).out, urlExpected);
+	assert.deepStrictEqual((secureAPIData(rawTests, rawRules)).out, rawExpected);
+	assert.deepStrictEqual((secureAPIData(multipleTests, multipleRules)).out, multipleExpected);
+	assert.deepStrictEqual((secureAPIData(arrayTests, arrayRules)).out, arrayExpected);
+	assert.deepStrictEqual((secureAPIData(missingObjectTests, missingObjectRules)).out, missingObjectExpected);
 }
 runTests();
