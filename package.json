@@ -36,7 +36,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/lodash": "^4.14.136",
     "@types/sugar": "^2.0.2",
-    "tslint": "^5.18.0",
+    "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.7.2"
   },
